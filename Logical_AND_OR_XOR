@@ -1,0 +1,72 @@
+;011b
+ ;111b
+  
+  .model small
+  .stack 100h
+  .data 
+  
+  andmsg db "AND resultL:$"
+  ormsg db 13,10, "OR result:$"
+  xormsg db 10,13, "XOR  result:$"
+  
+  
+  .code
+  
+  
+  main proc
+    mov ax,@data  
+    mov ds,ax
+    
+    AND_Gate :
+    ;and msg print
+    lea dx,andmsg
+    mov ah,9h
+    int 21h
+    
+  
+   ;and operation
+   mov bl,011b
+   and bl,111b          ;011
+   mov dl,bl            ;output reg
+   add dl,'0'           ;ascii convert
+   mov ah,2h            ;char print 
+   int 21h
+   
+  
+   OR_gate: 
+   ;or msg print
+   lea dx,ormsg  
+   mov ah,9h
+   int 21h 
+    
+    ;or operation
+    
+   mov bl,011b
+   or bl,111b              ;011b
+   mov dl,bl               ;output reg
+   add dl,'0'              ;ascii convert
+   mov ah,2h                ;char print 
+   int 21h   
+   
+  
+    xor_Gate:     
+    ;xor msg print
+    lea dx,xormsg
+    mov ah,9h
+    int 21h
+    
+    ;xord operation
+    
+   mov bl,011b
+   and bl,111b             ;100b
+   mov dl,bl               ;output reg
+   add dl,'0'              ;ascii convert(48,'0')
+   mov ah,2h               ;char print 
+   int 21h
+                                
+                                
+    exit:
+    mov ah,4ch 
+    int 21h
+    main endp
+  end main
