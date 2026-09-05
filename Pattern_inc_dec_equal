@@ -1,0 +1,106 @@
+.model small
+.stack 100h
+
+.data
+
+.code
+
+main proc
+    mov ax, @data
+    mov ds, ax
+
+
+; INCREASING PATTERN
+
+
+    mov cx, 1
+
+inc_outer:
+    mov bx, cx
+
+inc_inner:
+    mov dl, '*'
+    mov ah, 02h
+    int 21h
+
+    dec bx
+    jnz inc_inner
+
+    ; New line
+    mov dl, 13
+    mov ah, 02h
+    int 21h
+
+    mov dl, 10
+    int 21h
+
+    inc cx
+    cmp cx, 6
+    jl inc_outer
+
+
+
+; DECREASING PATTERN
+
+
+    mov cx, 5
+
+dec_outer:
+    mov bx, cx
+
+dec_inner:
+    mov dl, '*'
+    mov ah, 02h
+    int 21h
+
+    dec bx
+    jnz dec_inner
+
+    ; New line
+    mov dl, 13
+    mov ah, 02h
+    int 21h
+
+    mov dl, 10
+    int 21h
+
+    dec cx
+    jnz dec_outer
+
+
+; EQUAL PATTERN
+
+
+    mov cx, 5
+
+equal_outer:
+    mov bx, 5
+
+equal_inner:
+    mov dl, '*'
+    mov ah, 02h
+    int 21h
+
+    dec bx
+    jnz equal_inner
+
+    ; New line
+    mov dl, 13
+    mov ah, 02h
+    int 21h
+
+    mov dl, 10
+    int 21h
+
+    loop equal_outer
+
+
+; EXIT
+
+
+exit:
+    mov ah, 4ch
+    int 21h
+
+main endp
+end main
